@@ -1,0 +1,476 @@
+MYSQL QUERIES
+
+CREATE DATABASE: 
+mysql> create database queries;
+Query OK, 1 row affected (0.02 sec)
+
+USE DATABASE:
+mysql> use queries;
+Database changed
+
+CREATE TABLE LOCATION:
+mysql> create table Location (Location_id int (5) PRIMARY KEY,Regional_Group varchar (15));
+Query OK, 0 rows affected, 1 warning (0.03 sec)
+
+DESCRIBE TABLE LOCATION:
+mysql> describe Location;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| Location_id    | int         | NO   | PRI | NULL    |       |
+| Regional_Group | varchar(15) | YES  |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+INSERT VALUES INTO LOCATION:
+mysql> insert into Location(Location_id,Regional_Group) values (122,"New York"),(123,"Dallas"),(124,"Chicago"),(167,"Boston");
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+SELECT TABLE LOCATION:
+mysql> select*from Location;
++-------------+----------------+
+| Location_id | Regional_Group |
++-------------+----------------+
+|         122 | New York       |
+|         123 | Dallas         |
+|         124 | Chicago        |
+|         167 | Boston         |
++-------------+----------------+
+4 rows in set (0.00 sec)
+
+CREATE TABLE DEPARTMENT:
+mysql> create table Department(Department_id int(10) PRIMARY KEY,Name varchar (30),Location_id int(15),Foreign Key(Location_id) references Location(Location_id) on delete cascade);
+Query OK, 0 rows affected, 2 warnings (0.03 sec)
+
+DESCRIBE TABLE DEPARTMENT:
+mysql> describe Department;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| Department_id | int         | NO   | PRI | NULL    |       |
+| Name          | varchar(30) | YES  |     | NULL    |       |
+| Location_id   | int         | YES  | MUL | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+
+INSERT VALUES INTO DEPARTMENT:
+mysql> insert into Department(Department_id,Name,Location_id) values (10,"Accounting",122),(20,"Research",124),(30,"Sale",123),(40,"Operation",167);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+SELECT TABLE DEPARTMENT:
+mysql> select*from Department;
++---------------+------------+-------------+
+| Department_id | Name       | Location_id |
++---------------+------------+-------------+
+|            10 | Accounting |         122 |
+|            20 | Research   |         124 |
+|            30 | Sale       |         123 |
+|            40 | Operation  |         167 |
++---------------+------------+-------------+
+4 rows in set (0.00 sec)
+
+CREATE TABLE JOB:
+mysql> create table Job(Job_id int(10) PRIMARY KEY,Funct varchar (30));
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+DESCRIBE TABLE JOB:
+mysql> describe Job;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| Job_id | int         | NO   | PRI | NULL    |       |
+| Funct  | varchar(30) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+INSERT VALUES INTO JOB:
+mysql> insert into Job(Job_id,Funct) values (667,"Cleark"),(668,"Staff"),(669,"Analyst"),(670,"Saleperson"),(671,"Manager"),(672,"President");
+Query OK, 6 rows affected (0.00 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+SELECT TABLE JOB:
+mysql> select*from Job;
++--------+------------+
+| Job_id | Funct      |
++--------+------------+
+|    667 | Cleark     |
+|    668 | Staff      |
+|    669 | Analyst    |
+|    670 | Saleperson |
+|    671 | Manager    |
+|    672 | President  |
++--------+------------+
+6 rows in set (0.00 sec)
+
+CREATE TABLE EMPLOYEE:
+mysql> create table Employee(Employee_id int (10) PRIMARY KEY,Lastname varchar (15),Firstname varchar(15),Middlename varchar(15),Job_id int(10),Manager_id int(10),Hiredate date,
+Salary int(10),Department_id int(10),Foreign Key (Job_id) references Job(Job_id) on delete cascade);
+Query OK, 0 rows affected, 5 warnings (0.03 sec)
+
+ALTER TABLE EMPLOYEE:
+mysql> alter table Employee add Foreign Key (Department_id) references Department(Department_id);
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+DESCRIBE TABLE EMPLOYEE:
+mysql> describe Employee;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| Employee_id   | int         | NO   | PRI | NULL    |       |
+| Lastname      | varchar(15) | YES  |     | NULL    |       |
+| Firstname     | varchar(15) | YES  |     | NULL    |       |
+| Middlename    | varchar(15) | YES  |     | NULL    |       |
+| Job_id        | int         | YES  | MUL | NULL    |       |
+| Manager_id    | int         | YES  |     | NULL    |       |
+| Hiredate      | date        | YES  |     | NULL    |       |
+| Salary        | int         | YES  |     | NULL    |       |
+| Department_id | int         | YES  | MUL | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
+INSERT VALUES INTO EMPLOYEE:
+mysql> insert into Employee(Employee_id,Lastname,Firstname,Middlename,Job_id,Manager_id,Hiredate,Salary,Department_id) values 
+(7369,"Smith","Jon","Q",667,7902,'1984-12-17',800,10),(7499,"Allen","Kevin","J",670,7698,'1985-02-20',1600,20),
+(7505,"Doyle","Jean","K",671,7839,'1985-04-04',2850,20),(7506,"Dennis","Lynn","S",671,7839,'1985-05-15',2750,30),
+(7507,"Baker","Leslie","D",671,7839,'1985-06-10',2200,40),(7521,"Wark","Cynthia","D",670,7698,'1985-02-22',1250,10);
+Query OK, 6 rows affected (0.01 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+
+SIMPLE QUERIES:
+Q.1.List All The Employee Details.
+mysql> select*from Employee;
++-------------+----------+-----------+------------+--------+------------+------------+--------+---------------+
+| Employee_id | Lastname | Firstname | Middlename | Job_id | Manager_id | Hiredate   | Salary | Department_id |
++-------------+----------+-----------+------------+--------+------------+------------+--------+---------------+
+|        7369 | Smith    | Jon       | Q          |    667 |       7902 | 1984-12-17 |    800 |            10 |
+|        7499 | Allen    | Kevin     | J          |    670 |       7698 | 1985-02-20 |   1600 |            20 |
+|        7505 | Doyle    | Jean      | K          |    671 |       7839 | 1985-04-04 |   2850 |            20 |
+|        7506 | Dennis   | Lynn      | S          |    671 |       7839 | 1985-05-15 |   2750 |            30 |
+|        7507 | Baker    | Leslie    | D          |    671 |       7839 | 1985-06-10 |   2200 |            40 |
+|        7521 | Wark     | Cynthia   | D          |    670 |       7698 | 1985-02-22 |   1250 |            10 |
++-------------+----------+-----------+------------+--------+------------+------------+--------+---------------+
+6 rows in set (0.00 sec)
+
+Q.2.List All The Department Details.
+mysql> select*from Department;
++---------------+------------+-------------+
+| Department_id | Name       | Location_id |
++---------------+------------+-------------+
+|            10 | Accounting |         122 |
+|            20 | Research   |         124 |
+|            30 | Sale       |         123 |
+|            40 | Operation  |         167 |
++---------------+------------+-------------+
+4 rows in set (0.00 sec)
+
+
+Q.3.List All Job Details.
+mysql> select*from Job;
++--------+------------+
+| Job_id | Funct      |
++--------+------------+
+|    667 | Cleark     |
+|    668 | Staff      |
+|    669 | Analyst    |
+|    670 | Saleperson |
+|    671 | Manager    |
+|    672 | President  |
++--------+------------+
+6 rows in set (0.00 sec)
+
+Q.4.List All The Locations.
+mysql> select*from Location;
++-------------+----------------+
+| Location_id | Regional_Group |
++-------------+----------------+
+|         122 | New York       |
+|         123 | Dallas         |
+|         124 | Chicago        |
+|         167 | Boston         |
++-------------+----------------+
+4 rows in set (0.00 sec)
+
+
+
+Q.5.List Out Firstname, Lastname, Salary For All Employees.
+mysql> select Firstname,Lastname,Salary from Employee;
++-----------+----------+--------+
+| Firstname | Lastname | Salary |
++-----------+----------+--------+
+| Jon       | Smith    |    800 |
+| Kevin     | Allen    |   1600 |
+| Jean      | Doyle    |   2850 |
+| Lynn      | Dennis   |   2750 |
+| Leslie    | Baker    |   2200 |
+| Cynthia   | Wark     |   1250 |
++-----------+----------+--------+
+6 rows in set (0.00 sec)
+
+Q.6.List out employee_id , last name,department_id for all employuees and rename employee id as “ID of the Employee”, 
+last name as “Name of the Employee”, department id as “Deparment ID”.
+mysql> select Employee_id,Lastname,Department_id from Employee;
++-------------+----------+---------------+
+| Employee_id | Lastname | Department_id |
++-------------+----------+---------------+
+|        7369 | Smith    |            10 |
+|        7499 | Allen    |            20 |
+|        7505 | Doyle    |            20 |
+|        7506 | Dennis   |            30 |
+|        7507 | Baker    |            40 |
+|        7521 | Wark     |            10 |
++-------------+----------+---------------+
+6 rows in set (0.00 sec)
+
+mysql> alter table Employee RENAME COLUMN Employee_id TO ID_of_the_Employee;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+
+mysql> select*from Employee;
++--------------------+----------+-----------+------------+--------+------------+------------+--------+---------------+
+| ID_of_the_Employee | Lastname | Firstname | Middlename | Job_id | Manager_id | Hiredate   | Salary | Department_id |
++--------------------+----------+-----------+------------+--------+------------+------------+--------+---------------+
+|               7369 | Smith    | Jon       | Q          |    667 |       7902 | 1984-12-17 |    800 |            10 |
+|               7499 | Allen    | Kevin     | J          |    670 |       7698 | 1985-02-20 |   1600 |            20 |
+|               7505 | Doyle    | Jean      | K          |    671 |       7839 | 1985-04-04 |   2850 |            20 |
+|               7506 | Dennis   | Lynn      | S          |    671 |       7839 | 1985-05-15 |   2750 |            30 |
+|               7507 | Baker    | Leslie    | D          |    671 |       7839 | 1985-06-10 |   2200 |            40 |
+|               7521 | Wark     | Cynthia   | D          |    670 |       7698 | 1985-02-22 |   1250 |            10 |
++--------------------+----------+-----------+------------+--------+------------+------------+--------+---------------+
+6 rows in set (0.00 sec)
+
+mysql> alter table Employee RENAME COLUMN Department_id TO DEPARTMENT_ID;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+
+
+
+
+
+
+
+mysql> select*from Employee;
++--------------------+----------+-----------+------------+--------+------------+------------+--------+---------------+
+| ID_of_the_Employee | Lastname | Firstname | Middlename | Job_id | Manager_id | Hiredate   | Salary | DEPARTMENT_ID |
++--------------------+----------+-----------+------------+--------+------------+------------+--------+---------------+
+|               7369 | Smith    | Jon       | Q          |    667 |       7902 | 1984-12-17 |    800 |            10 |
+|               7499 | Allen    | Kevin     | J          |    670 |       7698 | 1985-02-20 |   1600 |            20 |
+|               7505 | Doyle    | Jean      | K          |    671 |       7839 | 1985-04-04 |   2850 |            20 |
+|               7506 | Dennis   | Lynn      | S          |    671 |       7839 | 1985-05-15 |   2750 |            30 |
+|               7507 | Baker    | Leslie    | D          |    671 |       7839 | 1985-06-10 |   2200 |            40 |
+|               7521 | Wark     | Cynthia   | D          |    670 |       7698 | 1985-02-22 |   1250 |            10 |
++--------------------+----------+-----------+------------+--------+------------+------------+--------+---------------+
+6 rows in set (0.00 sec)
+
+
+Q.7.List out the employees annual salary with their names only.
+mysql> select Firstname,Middlename,Lastname,salary*12 as 'Annual Salary' from Employee;
++-----------+------------+----------+---------------+
+| Firstname | Middlename | Lastname | Annual Salary |
++-----------+------------+----------+---------------+
+| Jon       | Q          | Smith    |          9600 |
+| Kevin     | J          | Allen    |         19200 |
+| Jean      | K          | Doyle    |         34200 |
+| Lynn      | S          | Dennis   |         33000 |
+| Leslie    | D          | Baker    |         26400 |
+| Cynthia   | D          | Wark     |         15000 |
++-----------+------------+----------+---------------+
+6 rows in set (0.00 sec)
+
+
+
+WHERE CONDITONS:
+
+Q.8.List the details about “smith”
+mysql> select *from Employee where Lastname="Smith";
++--------------------+----------+-----------+------------+--------+------------+------------+--------+---------------+
+| ID_of_the_Employee | Lastname | Firstname | Middlename | Job_id | Manager_id | Hiredate   | Salary | DEPARTMENT_ID |
++--------------------+----------+-----------+------------+--------+------------+------------+--------+---------------+
+|               7369 | Smith    | Jon       | Q          |    667 |       7902 | 1984-12-17 |    800 |            10 |
++--------------------+----------+-----------+------------+--------+------------+------------+--------+---------------+
+1 row in set (0.00 sec)
+
+Q.9.List out the employee whose job id is 671.
+mysql> select ID_of_the_Employee,Lastname,Firstname,Middlename,Job_id from Employee where Job_id=671;
++--------------------+----------+-----------+------------+--------+
+| ID_of_the_Employee | Lastname | Firstname | Middlename | Job_id |
++--------------------+----------+-----------+------------+--------+
+|               7505 | Doyle    | Jean      | K          |    671 |
+|               7506 | Dennis   | Lynn      | S          |    671 |
+|               7507 | Baker    | Leslie    | D          |    671 |
++--------------------+----------+-----------+------------+--------+
+3 rows in set (0.00 sec)
+
+Q.10.List out the employees who are earning salary between 3000 and 4500.
+mysql> select *from Employee where salary between 3000 and 4500;
+Empty set (0.00 sec)
+Q.11.List out the employee who are working in department 10 or 20.
+mysql> select ID_of_the_Employee,Lastname,Firstname,Middlename,DEPARTMENT_ID from Employee where Department_id=10 or Department_id= 20;
++--------------------+----------+-----------+------------+---------------+
+| ID_of_the_Employee | Lastname | Firstname | Middlename | DEPARTMENT_ID |
++--------------------+----------+-----------+------------+---------------+
+|               7369 | Smith    | Jon       | Q          |            10 |
+|               7521 | Wark     | Cynthia   | D          |            10 |
+|               7499 | Allen    | Kevin     | J          |            20 |
+|               7505 | Doyle    | Jean      | K          |            20 |
++--------------------+----------+-----------+------------+---------------+
+4 rows in set (0.00 sec)
+
+Q.12.Find out the employees who are not working in department 10 or 30.
+
+mysql> select ID_of_the_Employee,Lastname,Firstname,Middlename,DEPARTMENT_ID from Employee where not Department_id=10 and not Department_id= 30;
++--------------------+----------+-----------+------------+---------------+
+| ID_of_the_Employee | Lastname | Firstname | Middlename | DEPARTMENT_ID |
++--------------------+----------+-----------+------------+---------------+
+|               7499 | Allen    | Kevin     | J          |            20 |
+|               7505 | Doyle    | Jean      | K          |            20 |
+|               7507 | Baker    | Leslie    | D          |            40 |
++--------------------+----------+-----------+------------+---------------+
+
+
+
+
+3 rows in set (0.00 sec)
+
+Q.13.List out the employees whose name start with “s”.
+mysql> select ID_of_the_Employee,Lastname,Firstname,Middlename from Employee where Lastname like 'S%';
++--------------------+----------+-----------+------------+
+| ID_of_the_Employee | Lastname | Firstname | Middlename |
++--------------------+----------+-----------+------------+
+|               7369 | Smith    | Jon       | Q          |
++--------------------+----------+-----------+------------+
+1 row in set (0.00 sec)
+
+
+Q.14.List out the employees whose name start with “s” and end with “h”.
+mysql> select ID_of_the_Employee,Lastname,Firstname,Middlename from Employee where Lastname like 'S%H';
++--------------------+----------+-----------+------------+
+| ID_of_the_Employee | Lastname | Firstname | Middlename |
++--------------------+----------+-----------+------------+
+|               7369 | Smith    | Jon       | Q          |
++--------------------+----------+-----------+------------+
+1 row in set (0.00 sec)
+
+
+
+
+
+
+
+
+Q15.List out the employees whose name length is 4 and start with “s”.
+mysql> select ID_of_the_Employee,Lastname,Firstname,Middlename from Employee where Lastname like 'S____';
++--------------------+----------+-----------+------------+
+| ID_of_the_Employee | Lastname | Firstname | Middlename |
++--------------------+----------+-----------+------------+
+|               7369 | Smith    | Jon       | Q          |
++--------------------+----------+-----------+------------+
+1 row in set (0.00 sec)
+
+mysql> select ID_of_the_Employee,Lastname,Firstname,Middlename from Employee where length(Lastname)=4 and Lastname like 'S%';
+Empty set (0.00 sec)
+
+
+Q.16.List out the employees who are working in department 10 and draw the salaries more than 1000.
+
+mysql> select ID_of_the_Employee,Lastname,Firstname,Middlename,Salary from Employee where DEPARTMENT_ID=10 and Salary>1000;
++--------------------+----------+-----------+------------+--------+
+| ID_of_the_Employee | Lastname | Firstname | Middlename | Salary |
++--------------------+----------+-----------+------------+--------+
+|               7521 | Wark     | Cynthia   | D          |   1250 |
++--------------------+----------+-----------+------------+--------+
+1 row in set (0.00 sec)
+
+
+ORDER BY CLAUSE:
+Q17.List out employee id, last name in ascending order based on the employee id.
+mysql> select ID_of_the_Employee,Lastname from Employee order by ID_of_the_Employee;
++--------------------+----------+
+| ID_of_the_Employee | Lastname |
++--------------------+----------+
+|               7369 | Smith    |
+|               7499 | Allen    |
+|               7505 | Doyle    |
+|               7506 | Dennis   |
+|               7507 | Baker    |
+|               7521 | Wark     |
++--------------------+----------+
+6 rows in set (0.00 sec)
+
+Q18.List out employee id, last name in descending order based on the salary column.
+mysql> select ID_of_the_Employee,Lastname from Employee order by Salary desc;
++--------------------+----------+
+| ID_of_the_Employee | Lastname |
++--------------------+----------+
+|               7505 | Doyle    |
+|               7506 | Dennis   |
+|               7507 | Baker    |
+|               7499 | Allen    |
+|               7521 | Wark     |
+|               7369 | Smith    |
++--------------------+----------+
+6 rows in set (0.00 sec)
+
+Q.19.List out employee details according to their last name in ascending order and salaries in descending order.
+
+mysql> select*from employee order by Lastname,Salary desc;
++--------------------+----------+-----------+------------+--------+------------+------------+--------+---------------+
+| ID_of_the_Employee | Lastname | Firstname | Middlename | Job_id | Manager_id | Hiredate   | Salary | DEPARTMENT_ID |
++--------------------+----------+-----------+------------+--------+------------+------------+--------+---------------+
+|               7499 | Allen    | Kevin     | J          |    670 |       7698 | 1985-02-20 |   1600 |            20 |
+|               7507 | Baker    | Leslie    | D          |    671 |       7839 | 1985-06-10 |   2200 |            40 |
+|               7506 | Dennis   | Lynn      | S          |    671 |       7839 | 1985-05-15 |   2750 |            30 |
+|               7505 | Doyle    | Jean      | K          |    671 |       7839 | 1985-04-04 |   2850 |            20 |
+|               7369 | Smith    | Jon       | Q          |    667 |       7902 | 1984-12-17 |    800 |            10 |
+|               7521 | Wark     | Cynthia   | D          |    670 |       7698 | 1985-02-22 |   1250 |            10 |
++--------------------+----------+-----------+------------+--------+------------+------------+--------+---------------+
+6 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Q.20.List out employee details according to their last name in ascending order and then on department_id in descending order.
+
+mysql> select * from employee order by Lastname;
++--------------------+----------+-----------+------------+--------+------------+------------+--------+---------------+
+| ID_of_the_Employee | Lastname | Firstname | Middlename | Job_id | Manager_id | Hiredate   | Salary | DEPARTMENT_ID |
++--------------------+----------+-----------+------------+--------+------------+------------+--------+---------------+
+|               7499 | Allen    | Kevin     | J          |    670 |       7698 | 1985-02-20 |   1600 |            20 |
+|               7507 | Baker    | Leslie    | D          |    671 |       7839 | 1985-06-10 |   2200 |            40 |
+|               7506 | Dennis   | Lynn      | S          |    671 |       7839 | 1985-05-15 |   2750 |            30 |
+|               7505 | Doyle    | Jean      | K          |    671 |       7839 | 1985-04-04 |   2850 |            20 |
+|               7369 | Smith    | Jon       | Q          |    667 |       7902 | 1984-12-17 |    800 |            10 |
+|               7521 | Wark     | Cynthia   | D          |    670 |       7698 | 1985-02-22 |   1250 |            10 |
++--------------------+----------+-----------+------------+--------+------------+------------+--------+---------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from employee order by DEPARTMENT_ID desc;
++--------------------+----------+-----------+------------+--------+------------+------------+--------+---------------+
+| ID_of_the_Employee | Lastname | Firstname | Middlename | Job_id | Manager_id | Hiredate   | Salary | DEPARTMENT_ID |
++--------------------+----------+-----------+------------+--------+------------+------------+--------+---------------+
+|               7507 | Baker    | Leslie    | D          |    671 |       7839 | 1985-06-10 |   2200 |            40 |
+|               7506 | Dennis   | Lynn      | S          |    671 |       7839 | 1985-05-15 |   2750 |            30 |
+|               7499 | Allen    | Kevin     | J          |    670 |       7698 | 1985-02-20 |   1600 |            20 |
+|               7505 | Doyle    | Jean      | K          |    671 |       7839 | 1985-04-04 |   2850 |            20 |
+|               7369 | Smith    | Jon       | Q          |    667 |       7902 | 1984-12-17 |    800 |            10 |
+|               7521 | Wark     | Cynthia   | D          |    670 |       7698 | 1985-02-22 |   1250 |            10 |
++--------------------+----------+-----------+------------+--------+------------+------------+--------+---------------+
+6 rows in set (0.00 sec)
