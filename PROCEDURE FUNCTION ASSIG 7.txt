@@ -1,0 +1,63 @@
+
+DBMS – ASSIGNMENT – 7
+CREATE TABLE stud_marks
+SQL> create table stud_marks(name varchar2(30),marks int);
+Table created.
+DESCRIBE TABLE stud_marks
+SQL> desc stud_marks;
+Name Null? Type
+----------------------------------------- -------- ----------------------------
+NAME VARCHAR2(30)
+MARKS NUMBER(38)
+INSERT VALUES INTO stud_marks TABLE –
+SQL> insert into stud_marks values('vedant',900);
+1 row created.
+SQL> insert into stud_marks values('manas',1300);
+1 row created.
+SQL> insert into stud_marks values('vedant',700);
+1 row created.
+SQL> select*from stud_marks;
+NAME MARKS
+------------------------------ ----------
+vedant 900
+manas 1300
+vedant 700
+CREATE TABLE result
+SQL> create table result(roll_no number,name varchar2(30),class varchar2(30));
+Table created.
+DESCRIBE TABLE result
+SQL> desc result;
+Name Null? Type
+----------------------------------------- -------- ----------------------------
+ROLL_NO NUMBER
+NAME VARCHAR2(30)
+CLASS VARCHAR2(30)
+CREATE PROCEDURE pro_grade
+SQL> create or replace procedure pro_grade(rno number,name varchar2,total_marks number)
+is
+2 class varchar2(50);
+3 begin
+4 if (total_marks>=825 and total_marks<=899) then
+5 class:='HSC';
+6 elsif(total_marks>=900 and total_marks<=989) then
+7 class:='FC';
+8 elsif(total_marks<=1500 and total_marks>=990) then
+9 class:='DIST';
+10 end if;
+11 insert into result values(rno,name,class);
+12 end;
+13 /
+Procedure created.
+SQL> exec pro_grade(1,'vedant',933);
+PL/SQL procedure successfully completed.
+SQL> select*from result;
+ROLL_NO NAME CLASS
+---------- ------------------------------ ------------------------------
+1 vedant FC
+SQL> exec pro_grade(2,'manas',1300);
+PL/SQL procedure successfully completed.
+SQL> select*from result;
+ROLL_NO NAME CLASS
+---------- ------------------------------ ------------------------------
+1 vedant FC
+2 manas DIST

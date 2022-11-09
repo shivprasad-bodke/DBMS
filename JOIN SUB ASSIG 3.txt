@@ -1,0 +1,361 @@
+
+
+DBMS – ASSIGNMENT – 3
+mysql> create database dbms3a;
+Query OK, 1 row affected (0.01 sec)
+mysql> use dbms3a;
+Database changed
+Create table customers -
+mysql> create table customers(Id int (10)not null auto_increment primary key,cust_name
+char(30),age int(10), address char (30),salary int(20));
+Query OK, 0 rows affected, 3 warnings (0.03 sec)
+Insert values into customers -
+mysql> insert into customers value(1,'vedant',20,'karad',3000);
+Query OK, 1 row affected (0.00 sec)
+mysql> insert into customers value(2,'pratik',23,'pune',3000);
+Query OK, 1 row affected (0.01 sec)
+mysql> insert into customers value(3,'nitin',25,'sangli',300);
+Query OK, 1 row affected (0.00 sec)
+mysql> insert into customers value(4,'vinayak',24,'mumbai',200);
+Query OK, 1 row affected (0.00 sec)
+mysql> insert into customers value(5,'prathamesh',19,'nanded',4000);
+Query OK, 1 row affected (0.00 sec)
+Display customers table -
+mysql> select * from customers;
++----+------------+------+---------+--------+
+| Id | cust_name | age | address | salary |
++----+------------+------+---------+--------+
+| 1 | vedant | 20 | karad | 3000 |
+| 2 | pratik | 23 | pune | 3000 |
+| 3 | nitin | 25 | sangli | 300 |
+| 4 | vinayak | 24 | mumbai | 200 |
+| 5 | prathamesh | 19 | nanded | 4000 |
++----+------------+------+---------+--------+
+5 rows in set (0.00 sec)
+Create orders table -
+mysql> create table orders(o_id int(10) not null auto_increment primary key,o_date
+varchar(20),customer_id int (20),amount int(20));
+Query OK, 0 rows affected, 3 warnings (0.02 sec)
+Insert values into orders table -
+mysql> insert into orders values(10,'10/02/2020', 1,4000);
+Query OK, 1 row affected (0.01 sec)
+mysql> insert into orders values(20,'20/02/2020', 2,6000);
+Query OK, 1 row affected (0.00 sec)
+mysql> insert into orders values(30,'20/02/2019', 3,7000);
+Query OK, 1 row affected (0.00 sec)
+mysql> insert into orders values(40,'15/02/2022', 4,9000);
+Query OK, 1 row affected (0.00 sec)
+mysql> insert into orders values(50,'25/02/2012', 5,1000);
+Query OK, 1 row affected (0.00 sec)
+Display orders table -
+mysql> select * from orders;
++------+------------+-------------+--------+
+| o_id | o_date | customer_id | amount |
++------+------------+-------------+--------+
+| 10 | 10/02/2020 | 1 | 4000 |
+| 20 | 20/02/2020 | 2 | 6000 |
+| 30 | 20/02/2019 | 3 | 7000 |
+| 40 | 15/02/2022 | 4 | 9000 |
+| 50 | 25/02/2012 | 5 | 1000 |
++------+------------+-------------+--------+
+5 rows in set (0.00 sec)
+Inner join -
+mysql> select * from customers inner join orders;
++----+------------+------+---------+--------+------+------------+-------------+--------+
+| Id | cust_name | age | address | salary | o_id | o_date | customer_id | amount |
++----+------------+------+---------+--------+------+------------+-------------+--------+
+| 5 | prathamesh | 19 | nanded | 4000 | 10 | 10/02/2020 | 1 | 4000 |
+| 4 | vinayak | 24 | mumbai | 200 | 10 | 10/02/2020 | 1 | 4000 |
+| 3 | nitin | 25 | sangli | 300 | 10 | 10/02/2020 | 1 | 4000 |
+| 2 | pratik | 23 | pune | 3000 | 10 | 10/02/2020 | 1 | 4000 |
+| 1 | vedant | 20 | karad | 3000 | 10 | 10/02/2020 | 1 | 4000 |
+| 5 | prathamesh | 19 | nanded | 4000 | 20 | 20/02/2020 | 2 | 6000 |
+| 4 | vinayak | 24 | mumbai | 200 | 20 | 20/02/2020 | 2 | 6000 |
+| 3 | nitin | 25 | sangli | 300 | 20 | 20/02/2020 | 2 | 6000 |
+| 2 | pratik | 23 | pune | 3000 | 20 | 20/02/2020 | 2 | 6000 |
+| 1 | vedant | 20 | karad | 3000 | 20 | 20/02/2020 | 2 | 6000 |
+| 5 | prathamesh | 19 | nanded | 4000 | 30 | 20/02/2019 | 3 | 7000 |
+| 4 | vinayak | 24 | mumbai | 200 | 30 | 20/02/2019 | 3 | 7000 |
+| 3 | nitin | 25 | sangli | 300 | 30 | 20/02/2019 | 3 | 7000 |
+| 2 | pratik | 23 | pune | 3000 | 30 | 20/02/2019 | 3 | 7000 |
+| 1 | vedant | 20 | karad | 3000 | 30 | 20/02/2019 | 3 | 7000 |
+| 5 | prathamesh | 19 | nanded | 4000 | 40 | 15/02/2022 | 4 | 9000 |
+| 4 | vinayak | 24 | mumbai | 200 | 40 | 15/02/2022 | 4 | 9000 |
+| 3 | nitin | 25 | sangli | 300 | 40 | 15/02/2022 | 4 | 9000 |
+| 2 | pratik | 23 | pune | 3000 | 40 | 15/02/2022 | 4 | 9000 |
+| 1 | vedant | 20 | karad | 3000 | 40 | 15/02/2022 | 4 | 9000 |
+| 5 | prathamesh | 19 | nanded | 4000 | 50 | 25/02/2012 | 5 | 1000 |
+| 4 | vinayak | 24 | mumbai | 200 | 50 | 25/02/2012 | 5 | 1000 |
+| 3 | nitin | 25 | sangli | 300 | 50 | 25/02/2012 | 5 | 1000 |
+| 2 | pratik | 23 | pune | 3000 | 50 | 25/02/2012 | 5 | 1000 |
+| 1 | vedant | 20 | karad | 3000 | 50 | 25/02/2012 | 5 | 1000 |
++----+------------+------+---------+--------+------+------------+-------------+--------+
+25 rows in set (0.00 sec)
+Inner join with condition -
+mysql> select * from customers inner join orders ON customers.Id = orders.customer_id;
++----+------------+------+---------+--------+------+------------+-------------+--------+
+| Id | cust_name | age | address | salary | o_id | o_date | customer_id | amount |
++----+------------+------+---------+--------+------+------------+-------------+--------+
+| 1 | vedant | 20 | karad | 3000 | 10 | 10/02/2020 | 1 | 4000 |
+| 2 | pratik | 23 | pune | 3000 | 20 | 20/02/2020 | 2 | 6000 |
+| 3 | nitin | 25 | sangli | 300 | 30 | 20/02/2019 | 3 | 7000 |
+| 4 | vinayak | 24 | mumbai | 200 | 40 | 15/02/2022 | 4 | 9000 |
+| 5 | prathamesh | 19 | nanded | 4000 | 50 | 25/02/2012 | 5 | 1000 |
++----+------------+------+---------+--------+------+------------+-------------+--------+
+5 rows in set (0.00 sec)
+Left join with condition -
+mysql> select * from customers left join orders on customers.Id=orders.customer_id;
++----+------------+------+---------+--------+------+------------+-------------+--------+
+| Id | cust_name | age | address | salary | o_id | o_date | customer_id | amount |
++----+------------+------+---------+--------+------+------------+-------------+--------+
+| 1 | vedant | 20 | karad | 3000 | 10 | 10/02/2020 | 1 | 4000 |
+| 2 | pratik | 23 | pune | 3000 | 20 | 20/02/2020 | 2 | 6000 |
+| 3 | nitin | 25 | sangli | 300 | 30 | 20/02/2019 | 3 | 7000 |
+| 4 | vinayak | 24 | mumbai | 200 | 40 | 15/02/2022 | 4 | 9000 |
+| 5 | prathamesh | 19 | nanded | 4000 | 50 | 25/02/2012 | 5 | 1000 |
++----+------------+------+---------+--------+------+------------+-------------+--------+
+5 rows in set (0.00 sec)
+Right join with condition -
+mysql> select * from customers right join orders on customers.Id=orders.customer_id;
++------+------------+------+---------+--------+------+------------+-------------+--------+
+| Id | cust_name | age | address | salary | o_id | o_date | customer_id | amount |
++------+------------+------+---------+--------+------+------------+-------------+--------+
+| 1 | vedant | 20 | karad | 3000 | 10 | 10/02/2020 | 1 | 4000 |
+| 2 | pratik | 23 | pune | 3000 | 20 | 20/02/2020 | 2 | 6000 |
+| 3 | nitin | 25 | sangli | 300 | 30 | 20/02/2019 | 3 | 7000 |
+| 4 | vinayak | 24 | mumbai | 200 | 40 | 15/02/2022 | 4 | 9000 |
+| 5 | prathamesh | 19 | nanded | 4000 | 50 | 25/02/2012 | 5 | 1000 |
++------+------------+------+---------+--------+------+------------+-------------+--------+
+5 rows in set (0.00 sec)
+Natural join -
+mysql> select * from customers natural join orders;
++----+------------+------+---------+--------+------+------------+-------------+--------+
+| Id | cust_name | age | address | salary | o_id | o_date | customer_id | amount |
++----+------------+------+---------+--------+------+------------+-------------+--------+
+| 5 | prathamesh | 19 | nanded | 4000 | 10 | 10/02/2020 | 1 | 4000 |
+| 4 | vinayak | 24 | mumbai | 200 | 10 | 10/02/2020 | 1 | 4000 |
+| 3 | nitin | 25 | sangli | 300 | 10 | 10/02/2020 | 1 | 4000 |
+| 2 | pratik | 23 | pune | 3000 | 10 | 10/02/2020 | 1 | 4000 |
+| 1 | vedant | 20 | karad | 3000 | 10 | 10/02/2020 | 1 | 4000 |
+| 5 | prathamesh | 19 | nanded | 4000 | 20 | 20/02/2020 | 2 | 6000 |
+| 4 | vinayak | 24 | mumbai | 200 | 20 | 20/02/2020 | 2 | 6000 |
+| 3 | nitin | 25 | sangli | 300 | 20 | 20/02/2020 | 2 | 6000 |
+| 2 | pratik | 23 | pune | 3000 | 20 | 20/02/2020 | 2 | 6000 |
+| 1 | vedant | 20 | karad | 3000 | 20 | 20/02/2020 | 2 | 6000 |
+| 5 | prathamesh | 19 | nanded | 4000 | 30 | 20/02/2019 | 3 | 7000 |
+| 4 | vinayak | 24 | mumbai | 200 | 30 | 20/02/2019 | 3 | 7000 |
+| 3 | nitin | 25 | sangli | 300 | 30 | 20/02/2019 | 3 | 7000 |
+| 2 | pratik | 23 | pune | 3000 | 30 | 20/02/2019 | 3 | 7000 |
+| 1 | vedant | 20 | karad | 3000 | 30 | 20/02/2019 | 3 | 7000 |
+| 5 | prathamesh | 19 | nanded | 4000 | 40 | 15/02/2022 | 4 | 9000 |
+| 4 | vinayak | 24 | mumbai | 200 | 40 | 15/02/2022 | 4 | 9000 |
+| 3 | nitin | 25 | sangli | 300 | 40 | 15/02/2022 | 4 | 9000 |
+| 2 | pratik | 23 | pune | 3000 | 40 | 15/02/2022 | 4 | 9000 |
+| 1 | vedant | 20 | karad | 3000 | 40 | 15/02/2022 | 4 | 9000 |
+| 5 | prathamesh | 19 | nanded | 4000 | 50 | 25/02/2012 | 5 | 1000 |
+| 4 | vinayak | 24 | mumbai | 200 | 50 | 25/02/2012 | 5 | 1000 |
+| 3 | nitin | 25 | sangli | 300 | 50 | 25/02/2012 | 5 | 1000 |
+| 2 | pratik | 23 | pune | 3000 | 50 | 25/02/2012 | 5 | 1000 |
+| 1 | vedant | 20 | karad | 3000 | 50 | 25/02/2012 | 5 | 1000 |
++----+------------+------+---------+--------+------+------------+-------------+--------+
+25 rows in set (0.00 sec)
+Natural right join -
+mysql> select * from customers natural right join orders;
++------+------------+-------------+--------+------+------------+------+---------+--------+
+
+| o_id | o_date | customer_id | amount | Id | cust_name | age | address | salary |
++------+------------+-------------+--------+------+------------+------+---------+--------+
+| 10 | 10/02/2020 | 1 | 4000 | 5 | prathamesh | 19 | nanded | 4000 |
+| 10 | 10/02/2020 | 1 | 4000 | 4 | vinayak | 24 | mumbai | 200 |
+| 10 | 10/02/2020 | 1 | 4000 | 3 | nitin | 25 | sangli | 300 |
+| 10 | 10/02/2020 | 1 | 4000 | 2 | pratik | 23 | pune | 3000 |
+| 10 | 10/02/2020 | 1 | 4000 | 1 | vedant | 20 | karad | 3000 |
+| 20 | 20/02/2020 | 2 | 6000 | 5 | prathamesh | 19 | nanded | 4000 |
+| 20 | 20/02/2020 | 2 | 6000 | 4 | vinayak | 24 | mumbai | 200 |
+| 20 | 20/02/2020 | 2 | 6000 | 3 | nitin | 25 | sangli | 300 |
+| 20 | 20/02/2020 | 2 | 6000 | 2 | pratik | 23 | pune | 3000 |
+| 20 | 20/02/2020 | 2 | 6000 | 1 | vedant | 20 | karad | 3000 |
+| 30 | 20/02/2019 | 3 | 7000 | 5 | prathamesh | 19 | nanded | 4000 |
+| 30 | 20/02/2019 | 3 | 7000 | 4 | vinayak | 24 | mumbai | 200 |
+| 30 | 20/02/2019 | 3 | 7000 | 3 | nitin | 25 | sangli | 300 |
+| 30 | 20/02/2019 | 3 | 7000 | 2 | pratik | 23 | pune | 3000 |
+| 30 | 20/02/2019 | 3 | 7000 | 1 | vedant | 20 | karad | 3000 |
+| 40 | 15/02/2022 | 4 | 9000 | 5 | prathamesh | 19 | nanded | 4000 |
+| 40 | 15/02/2022 | 4 | 9000 | 4 | vinayak | 24 | mumbai | 200 |
+| 40 | 15/02/2022 | 4 | 9000 | 3 | nitin | 25 | sangli | 300 |
+| 40 | 15/02/2022 | 4 | 9000 | 2 | pratik | 23 | pune | 3000 |
+| 40 | 15/02/2022 | 4 | 9000 | 1 | vedant | 20 | karad | 3000 |
+| 50 | 25/02/2012 | 5 | 1000 | 5 | prathamesh | 19 | nanded | 4000 |
+| 50 | 25/02/2012 | 5 | 1000 | 4 | vinayak | 24 | mumbai | 200 |
+| 50 | 25/02/2012 | 5 | 1000 | 3 | nitin | 25 | sangli | 300 |
+| 50 | 25/02/2012 | 5 | 1000 | 2 | pratik | 23 | pune | 3000 |
+| 50 | 25/02/2012 | 5 | 1000 | 1 | vedant | 20 | karad | 3000 |
++------+------------+-------------+--------+------+------------+------+---------+--------+
+25 rows in set (0.00 sec)
+Natural left join -
+mysql> select * from customers natural left join orders;
++----+------------+------+---------+--------+------+------------+-------------+--------+
+| Id | cust_name | age | address | salary | o_id | o_date | customer_id | amount |
++----+------------+------+---------+--------+------+------------+-------------+--------+
+| 1 | vedant | 20 | karad | 3000 | 50 | 25/02/2012 | 5 | 1000 |
+| 1 | vedant | 20 | karad | 3000 | 40 | 15/02/2022 | 4 | 9000 |
+| 1 | vedant | 20 | karad | 3000 | 30 | 20/02/2019 | 3 | 7000 |
+| 1 | vedant | 20 | karad | 3000 | 20 | 20/02/2020 | 2 | 6000 |
+| 1 | vedant | 20 | karad | 3000 | 10 | 10/02/2020 | 1 | 4000 |
+| 2 | pratik | 23 | pune | 3000 | 50 | 25/02/2012 | 5 | 1000 |
+| 2 | pratik | 23 | pune | 3000 | 40 | 15/02/2022 | 4 | 9000 |
+| 2 | pratik | 23 | pune | 3000 | 30 | 20/02/2019 | 3 | 7000 |
+| 2 | pratik | 23 | pune | 3000 | 20 | 20/02/2020 | 2 | 6000 |
+| 2 | pratik | 23 | pune | 3000 | 10 | 10/02/2020 | 1 | 4000 |
+| 3 | nitin | 25 | sangli | 300 | 50 | 25/02/2012 | 5 | 1000 |
+| 3 | nitin | 25 | sangli | 300 | 40 | 15/02/2022 | 4 | 9000 |
+| 3 | nitin | 25 | sangli | 300 | 30 | 20/02/2019 | 3 | 7000 |
+| 3 | nitin | 25 | sangli | 300 | 20 | 20/02/2020 | 2 | 6000 |
+| 3 | nitin | 25 | sangli | 300 | 10 | 10/02/2020 | 1 | 4000 |
+| 4 | vinayak | 24 | mumbai | 200 | 50 | 25/02/2012 | 5 | 1000 |
+| 4 | vinayak | 24 | mumbai | 200 | 40 | 15/02/2022 | 4 | 9000 |
+| 4 | vinayak | 24 | mumbai | 200 | 30 | 20/02/2019 | 3 | 7000 |
+| 4 | vinayak | 24 | mumbai | 200 | 20 | 20/02/2020 | 2 | 6000 |
+| 4 | vinayak | 24 | mumbai | 200 | 10 | 10/02/2020 | 1 | 4000 |
+| 5 | prathamesh | 19 | nanded | 4000 | 50 | 25/02/2012 | 5 | 1000 |
+| 5 | prathamesh | 19 | nanded | 4000 | 40 | 15/02/2022 | 4 | 9000 |
+| 5 | prathamesh | 19 | nanded | 4000 | 30 | 20/02/2019 | 3 | 7000 |
+| 5 | prathamesh | 19 | nanded | 4000 | 20 | 20/02/2020 | 2 | 6000 |
+| 5 | prathamesh | 19 | nanded | 4000 | 10 | 10/02/2020 | 1 | 4000 |
++----+------------+------+---------+--------+------+------------+-------------+--------+
+25 rows in set (0.00 sec)
+Full outer join using union all set operation -
+mysql> select Id,cust_name from customers union all select o_id,o_date from orders;
++----+------------+
+| Id | cust_name |
++----+------------+
+| 1 | vedant |
+| 2 | pratik |
+| 3 | nitin |
+| 4 | vinayak |
+| 5 | prathamesh |
+| 10 | 10/02/2020 |
+| 20 | 20/02/2020 |
+| 30 | 20/02/2019 |
+| 40 | 15/02/2022 |
+| 50 | 25/02/2012 |
++----+------------+
+10 rows in set (0.00 sec)
+Full outer join using union all set operation to display customer_id -
+mysql> select Id from customers union select customer_id from orders;
++------+
+| Id |
++------+
+| 1 |
+| 2 |
+| 3 |
+| 4 |
+| 5 |
++------+
+5 rows in set (0.00 sec)
+Inner join with address -
+mysql> select * from customers inner join orders on customers.address=customers.address;
++----+------------+------+---------+--------+------+------------+-------------+--------+
+| Id | cust_name | age | address | salary | o_id | o_date | customer_id | amount |
++----+------------+------+---------+--------+------+------------+-------------+--------+
+| 5 | prathamesh | 19 | nanded | 4000 | 10 | 10/02/2020 | 1 | 4000 |
+| 4 | vinayak | 24 | mumbai | 200 | 10 | 10/02/2020 | 1 | 4000 |
+| 3 | nitin | 25 | sangli | 300 | 10 | 10/02/2020 | 1 | 4000 |
+| 2 | pratik | 23 | pune | 3000 | 10 | 10/02/2020 | 1 | 4000 |
+| 1 | vedant | 20 | karad | 3000 | 10 | 10/02/2020 | 1 | 4000 |
+| 5 | prathamesh | 19 | nanded | 4000 | 20 | 20/02/2020 | 2 | 6000 |
+| 4 | vinayak | 24 | mumbai | 200 | 20 | 20/02/2020 | 2 | 6000 |
+| 3 | nitin | 25 | sangli | 300 | 20 | 20/02/2020 | 2 | 6000 |
+| 2 | pratik | 23 | pune | 3000 | 20 | 20/02/2020 | 2 | 6000 |
+| 1 | vedant | 20 | karad | 3000 | 20 | 20/02/2020 | 2 | 6000 |
+| 5 | prathamesh | 19 | nanded | 4000 | 30 | 20/02/2019 | 3 | 7000 |
+| 4 | vinayak | 24 | mumbai | 200 | 30 | 20/02/2019 | 3 | 7000 |
+| 3 | nitin | 25 | sangli | 300 | 30 | 20/02/2019 | 3 | 7000 |
+| 2 | pratik | 23 | pune | 3000 | 30 | 20/02/2019 | 3 | 7000 |
+| 1 | vedant | 20 | karad | 3000 | 30 | 20/02/2019 | 3 | 7000 |
+| 5 | prathamesh | 19 | nanded | 4000 | 40 | 15/02/2022 | 4 | 9000 |
+| 4 | vinayak | 24 | mumbai | 200 | 40 | 15/02/2022 | 4 | 9000 |
+| 3 | nitin | 25 | sangli | 300 | 40 | 15/02/2022 | 4 | 9000 |
+| 2 | pratik | 23 | pune | 3000 | 40 | 15/02/2022 | 4 | 9000 |
+| 1 | vedant | 20 | karad | 3000 | 40 | 15/02/2022 | 4 | 9000 |
+| 5 | prathamesh | 19 | nanded | 4000 | 50 | 25/02/2012 | 5 | 1000 |
+| 4 | vinayak | 24 | mumbai | 200 | 50 | 25/02/2012 | 5 | 1000 |
+| 3 | nitin | 25 | sangli | 300 | 50 | 25/02/2012 | 5 | 1000 |
+| 2 | pratik | 23 | pune | 3000 | 50 | 25/02/2012 | 5 | 1000 |
+| 1 | vedant | 20 | karad | 3000 | 50 | 25/02/2012 | 5 | 1000 |
++----+------------+------+---------+--------+------+------------+-------------+--------+
+25 rows in set (0.00 sec)
+Self-join customers table to enlist the pair of customers belonging to same address -
+mysql> select * from customers as A, customers as B where A.Id = B.Id and
+A.address=B.address;
++----+------------+------+---------+--------+----+------------+------+---------+--------+
+| Id | cust_name | age | address | salary | Id | cust_name | age | address | salary |
++----+------------+------+---------+--------+----+------------+------+---------+--------+
+| 1 | vedant | 20 | karad | 3000 | 1 | vedant | 20 | karad | 3000 |
+| 2 | pratik | 23 | pune | 3000 | 2 | pratik | 23 | pune | 3000 |
+| 3 | nitin | 25 | sangli | 300 | 3 | nitin | 25 | sangli | 300 |
+| 4 | vinayak | 24 | mumbai | 200 | 4 | vinayak | 24 | mumbai | 200 |
+| 5 | prathamesh | 19 | nanded | 4000 | 5 | prathamesh | 19 | nanded | 4000 |
++----+------------+------+---------+--------+----+------------+------+---------+--------+
+5 rows in set (0.00 sec)
+Cross cartesian join -
+mysql> select Id,cust_name,amount,o_date from customers cross join orders;
++----+------------+--------+------------+
+| Id | cust_name | amount | o_date |
++----+------------+--------+------------+
+| 5 | prathamesh | 4000 | 10/02/2020 |
+| 4 | vinayak | 4000 | 10/02/2020 |
+| 3 | nitin | 4000 | 10/02/2020 |
+| 2 | pratik | 4000 | 10/02/2020 |
+| 1 | vedant | 4000 | 10/02/2020 |
+| 5 | prathamesh | 6000 | 20/02/2020 |
+| 4 | vinayak | 6000 | 20/02/2020 |
+| 3 | nitin | 6000 | 20/02/2020 |
+| 2 | pratik | 6000 | 20/02/2020 |
+| 1 | vedant | 6000 | 20/02/2020 |
+| 5 | prathamesh | 7000 | 20/02/2019 |
+| 4 | vinayak | 7000 | 20/02/2019 |
+| 3 | nitin | 7000 | 20/02/2019 |
+| 2 | pratik | 7000 | 20/02/2019 |
+| 1 | vedant | 7000 | 20/02/2019 |
+| 5 | prathamesh | 9000 | 15/02/2022 |
+| 4 | vinayak | 9000 | 15/02/2022 |
+| 3 | nitin | 9000 | 15/02/2022 |
+| 2 | pratik | 9000 | 15/02/2022 |
+| 1 | vedant | 9000 | 15/02/2022 |
+| 5 | prathamesh | 1000 | 25/02/2012 |
+| 4 | vinayak | 1000 | 25/02/2012 |
+| 3 | nitin | 1000 | 25/02/2012 |
+| 2 | pratik | 1000 | 25/02/2012 |
+| 1 | vedant | 1000 | 25/02/2012 |
++----+------------+--------+------------+
+25 rows in set (0.00 sec)
+Display all the details of the customers having salary greater than 20000 -
+mysql> select cust_name,salary,Id from customers where Id in (select Id from customers
+where salary>20000);
+Empty set (0.00 sec)
+Create cust_kbp table -
+mysql> create table cust_bkp(Id int(10),cust_name char(20),age int(5),address
+char(30),salary int(15));
+Query OK, 0 rows affected, 3 warnings (0.02 sec)
+Insert values into cust_kbp table -
+mysql> insert into cust_bkp select * from customers;
+Query OK, 5 rows affected (0.01 sec)
+Records: 5 Duplicates: 0 Warnings: 0
+Display cust_kbp table -
+mysql> select * from cust_bkp;
++------+------------+------+---------+--------+
+| Id | cust_name | age | address | salary |
++------+------------+------+---------+--------+
+| 1 | vedant | 20 | karad | 3000 |
+| 2 | pratik | 23 | pune | 3000 |
+| 3 | nitin | 25 | sangli | 300 |
+| 4 | vinayak | 24 | mumbai | 200 |
+| 5 | prathamesh | 19 | nanded | 4000 |
++------+------------+------+---------+--------+
+5 rows in set (0.00 sec)
+Update the salaries by 10% of all the customers (IN customers table ) having age
+greater than or equals to 24 by using sub query -
+mysql> update cust_bkp set salary = salary*1.1 where id in (select id from customers where
+age>24);
+Query OK, 1 row affected (0.02 sec)

@@ -1,0 +1,62 @@
+
+DBMS – ASSIGNMENT – 6
+CREATE TABLE O_ROLLCALL
+SQL> create table O_ROLLCALL(rollno number(5),name char(10));
+Table created.
+CREATE TABLE N_ROLLCALL
+SQL> create table N_ROLLCALL(rollno number(5),name char(10));
+Table created.
+INSERT VALUES INTO O_ROLLCALL TABLE –
+SQL> insert into O_ROLLCALL values(101,'Vedant');
+1 row created.
+SQL> insert into O_ROLLCALL values(102,'Manas');
+1 row created.
+SQL> insert into O_ROLLCALL values(103,'Nikhil');
+1 row created.
+INSERT VALUES INTO N_ROLLCALL TABLE –
+SQL> insert into N_ROLLCALL values(100,'Gaurav');
+1 row created.
+SQL> insert into N_ROLLCALL values(102,'Manas');
+1 row created.
+SQL> insert into N_ROLLCALL values(104,'Nitin');
+1 row created.
+PL/SQL BLOCK –
+SQL> declare
+2 cursor c1 is select *from O_ROLLCALL;
+3 cursor c2(str_name varchar)is select rollno from N_ROLLCALL where name=str_name;
+4 str_roll N_ROLLCALL.rollno%type;
+5 str_name N_ROLLCALL.name%type;
+6 v varchar2(20);
+7 begin
+8 open c1;
+9 loop
+10 fetch c1 into str_roll,str_name;
+11 exit when c1%NOTFOUND;
+12 open c2(str_name);
+13 fetch c2 into v;
+14 if c2%FOUND then
+15 dbms_output.put_line(str_name||'exist');
+16 else
+17 dbms_output.put_line(str_name||'exist');
+18 insert into N_ROLLCALL values(str_roll,str_name);
+19 end if;
+20 close c2;
+21 end loop;
+22 close c1;
+23 end;
+24 /
+PL/SQL procedure successfully completed.
+SQL> select*from N_ROLLCALL;
+ROLLNO NAME
+---------- ----------
+100 Gaurav
+102 Manas
+104 Nitin
+101 Vedant
+103 Nikhil
+SQL> select*from O_ROLLCALL;
+ROLLNO NAME
+---------- ----------
+101 Vedant
+102 Manas
+103 Nikhil

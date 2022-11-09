@@ -1,0 +1,625 @@
+
+GROUP: B
+ASSIGNMENT NO: 10
+(base) mmcoe@mmcoe-System-Product-Name:~$ mongo
+MongoDB shell version: 2.6.10
+connecting to: test
+> show databases;
+admin (empty)
+local 0.078GB
+> use tc221
+switched to db tc221
+1. Create Collection Employee
+> db.createCollection("Employee");
+{ "ok" : 1 }
+2. Insert 5 documents to Employee
+> db.Employee.insert({
+... Employee_id:001,Employee_name:"Vedant",Age:20,Dept:"Comp",Salary:3000})
+WriteResult({ "nInserted" : 1 })
+>
+db.Employee.insert({ Employee_id:002,Employee_name:"Nikhil",Age:21,Dept:"Comp",Salary:200
+0})
+WriteResult({ "nInserted" : 1 })
+>
+db.Employee.insert({ Employee_id:003,Employee_name:"Suraj",Age:20,Dept:"Comp",Salary:5000
+})
+WriteResult({ "nInserted" : 1 })
+>
+db.Employee.insert({ Employee_id:004,Employee_name:"Gaurav",Age:22,Dept:"Comp",Salary:40
+00})
+WriteResult({ "nInserted" : 1 })
+>
+db.Employee.insert({ Employee_id:005,Employee_name:"Ayush",Age:22,Dept:"Comp",Salary:350
+0})
+WriteResult({ "nInserted" : 1 })
+3. Read all the documents 4. Display all the documents in a formatted manner
+> db.Employee.find().pretty();
+{
+"_id" : ObjectId("634503891b36173496dbb4c0"),
+"Employee_id" : 1,
+"Employee_name" : "Vedant",
+"Age" : 20,
+"Dept" : "Comp",
+"Salary" : 3000
+}
+{
+"_id" : ObjectId("634503ab1b36173496dbb4c1"),
+"Employee_id" : 2,
+"Employee_name" : "Nikhil",
+"Age" : 21,
+"Dept" : "Comp",
+"Salary" : 2000
+}
+{
+"_id" : ObjectId("634503c11b36173496dbb4c2"),
+"Employee_id" : 3,
+"Employee_name" : "Suraj",
+"Age" : 20,
+"Dept" : "Comp",
+"Salary" : 5000
+}
+{
+"_id" : ObjectId("634503d81b36173496dbb4c3"),
+"Employee_id" : 4,
+"Employee_name" : "Gaurav",
+"Age" : 22,
+"Dept" : "Comp",
+"Salary" : 4000
+}
+{
+"_id" : ObjectId("634503f81b36173496dbb4c4"),
+"Employee_id" : 5,
+"Employee_name" : "Ayush",
+"Age" : 22,
+"Dept" : "Comp",
+"Salary" : 3500
+}
+> db.Employee.findOne();
+{
+"_id" : ObjectId("634503891b36173496dbb4c0"),
+"Employee_id" : 1,
+"Employee_name" : "Vedant",
+"Age" : 20,
+"Dept" : "Comp",
+"Salary" : 3000
+}
+
+5. Insert another 3 documents with a single insert command
+>for(i=0;i<3;i++){db.Employee.insert({"Employee_id":i,"Employee_name":"Emp"+i,"Age":Math.f
+loor(Math.random()*100),"Salary":i*1000,"Dept":"Dept"+i})};
+WriteResult({ "nInserted" : 1 })
+> db.Employee.find().pretty();
+{
+"_id" : ObjectId("634503891b36173496dbb4c0"),
+"Employee_id" : 1,
+"Employee_name" : "Vedant",
+"Age" : 20,
+"Dept" : "Comp",
+"Salary" : 3000
+}
+{
+"_id" : ObjectId("634503ab1b36173496dbb4c1"),
+"Employee_id" : 2,
+"Employee_name" : "Nikhil",
+"Age" : 21,
+"Dept" : "Comp",
+"Salary" : 2000
+}
+{
+"_id" : ObjectId("634503c11b36173496dbb4c2"),
+"Employee_id" : 3,
+"Employee_name" : "Suraj",
+"Age" : 20,
+"Dept" : "Comp",
+"Salary" : 5000
+}
+{
+"_id" : ObjectId("634503d81b36173496dbb4c3"),
+"Employee_id" : 4,
+"Employee_name" : "Gaurav",
+"Age" : 22,
+"Dept" : "Comp",
+"Salary" : 4000
+}
+{
+"_id" : ObjectId("634503f81b36173496dbb4c4"),
+"Employee_id" : 5,
+"Employee_name" : "Ayush",
+"Age" : 22,
+"Dept" : "Comp",
+"Salary" : 3500
+}
+
+{
+"_id" : ObjectId("634507261b36173496dbb4c5"),
+"Employee_id" : 0,
+"Employee_name" : "Emp0",
+"Age" : 81,
+"Salary" : 0,
+"Dept" : "Dept0"
+}
+{
+"_id" : ObjectId("634507261b36173496dbb4c6"),
+"Employee_id" : 1,
+"Employee_name" : "Emp1",
+"Age" : 3,
+"Salary" : 1000,
+"Dept" : "Dept1"
+}
+{
+"_id" : ObjectId("634507261b36173496dbb4c7"),
+"Employee_id" : 2,
+"Employee_name" : "Emp2",
+"Age" : 3,
+"Salary" : 2000,
+"Dept" : "Dept2"
+}
+6. Insert one document using save() method instead of insert() method
+>db.Employee.save({ Employee_id:6,Employee_name:"Nitin",Age:21,Dept:"Comp",Salary:6000})
+WriteResult({ "nInserted" : 1 })
+> db.Employee.find().pretty();
+{
+"_id" : ObjectId("634503891b36173496dbb4c0"),
+"Employee_id" : 1,
+"Employee_name" : "Vedant",
+"Age" : 20,
+"Dept" : "Comp",
+"Salary" : 3000
+}
+{
+"_id" : ObjectId("634503ab1b36173496dbb4c1"),
+"Employee_id" : 2,
+"Employee_name" : "Nikhil",
+"Age" : 21,
+"Dept" : "Comp",
+"Salary" : 2000
+}
+{
+"_id" : ObjectId("634503c11b36173496dbb4c2"),
+"Employee_id" : 3,
+"Employee_name" : "Suraj",
+"Age" : 20,
+"Dept" : "Comp",
+"Salary" : 5000
+}
+{
+"_id" : ObjectId("634503d81b36173496dbb4c3"),
+"Employee_id" : 4,
+"Employee_name" : "Gaurav",
+"Age" : 22,
+"Dept" : "Comp",
+"Salary" : 4000
+}
+{
+"_id" : ObjectId("634503f81b36173496dbb4c4"),
+"Employee_id" : 5,
+"Employee_name" : "Ayush",
+"Age" : 22,
+"Dept" : "Comp",
+"Salary" : 3500
+}
+{
+"_id" : ObjectId("634507261b36173496dbb4c5"),
+"Employee_id" : 0,
+"Employee_name" : "Emp0",
+"Age" : 81,
+"Salary" : 0,
+"Dept" : "Dept0"
+}
+{
+"_id" : ObjectId("634507261b36173496dbb4c6"),
+"Employee_id" : 1,
+"Employee_name" : "Emp1",
+"Age" : 3,
+"Salary" : 1000,
+"Dept" : "Dept1"
+}
+{
+"_id" : ObjectId("634507261b36173496dbb4c7"),
+"Employee_id" : 2,
+"Employee_name" : "Emp2",
+"Age" : 3,
+"Salary" : 2000,
+"Dept" : "Dept2"
+}
+{
+"_id" : ObjectId("634507d01b36173496dbb4c8"),
+"Employee_id" : 6,
+"Employee_name" : "Nitin",
+"Age" : 21,
+"Dept" : "Comp",
+"Salary" : 6000
+}
+7. Read all the employees whose name is ‘Joe’ and age is 25
+> db.Employee.find({"Employee_name":"Suraj"},{"Age":22});
+{ "_id" : ObjectId("634503f81b36173496dbb4c4"), "Age" : 22 }
+8. Read all the employees whose salary is greater than 5000
+> db.Employee.find({Salary:{$gt:5000}}).pretty()
+{
+"_id" : ObjectId("63464672d342f81ce051c386"),
+"Employee_id" : 6,
+"Employee_name" : "Nitin",
+"Age" : 21,
+"Dept" : "Comp",
+"Salary" : 6000
+}
+9. Update the department of employee ‘Joe’ from ‘Production’ to ‘Operations’
+> db.Employee.update({"Employee_name":"Suraj"},{$set:{Dept:"Mech"}},{multi:true});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.Employee.find({Employee_name:"Suraj"}).pretty();
+{
+"_id" : ObjectId("634645faf01fab6151010b41"),
+"Employee_id" : 3,
+"Employee_name" : "Suraj",
+"Age" : 20,
+"Dept" : "Mech",
+"Salary" : 7000
+}
+10. Increment the salary of ‘Joe’ by Rs. 2000
+> db.Employee.update({Employee_name:"Suraj"},{$inc:{Salary:2000}},{multi:true});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.Employee.find().pretty()
+{
+"_id" : ObjectId("634645cc1e5d2539627110a9"),
+"Employee_id" : 1,
+"Employee_name" : "Vedant",
+"Age" : 20,
+"Dept" : "Comp",
+"Salary" : 3000
+}
+{
+"_id" : ObjectId("634645f5f01fab6151010b40"),
+"Employee_id" : 2,
+"Employee_name" : "Nikhil",
+"Age" : 21,
+"Dept" : "Comp",
+"Salary" : 2000
+}
+{
+"_id" : ObjectId("634645faf01fab6151010b41"),
+"Employee_id" : 3,
+"Employee_name" : "Suraj",
+"Age" : 20,
+"Dept" : "Comp",
+"Salary" : 7000
+}
+{
+"_id" : ObjectId("63464603f01fab6151010b42"),
+"Employee_id" : 4,
+"Employee_name" : "Gaurav",
+"Age" : 22,
+"Dept" : "Comp",
+"Salary" : 4000
+}
+{
+"_id" : ObjectId("6346460af01fab6151010b43"),
+"Employee_id" : 5,
+"Employee_name" : "Ayush",
+"Age" : 22,
+"Dept" : "Comp",
+"Salary" : 3500
+}
+{
+"_id" : ObjectId("6346465fd342f81ce051c383"),
+"Employee_id" : 0,
+"Employee_name" : "Emp0",
+"Age" : 26,
+"Salary" : 0,
+"Dept" : "Dept0"
+}
+{
+"_id" : ObjectId("6346465fd342f81ce051c384"),
+"Employee_id" : 1,
+"Employee_name" : "Emp1",
+"Age" : 60,
+"Salary" : 1000,
+"Dept" : "Dept1"
+}
+{
+"_id" : ObjectId("6346465fd342f81ce051c385"),
+"Employee_id" : 2,
+"Employee_name" : "Emp2",
+"Age" : 51,
+"Salary" : 2000,
+"Dept" : "Dept2"
+}
+{
+"_id" : ObjectId("63464672d342f81ce051c386"),
+"Employee_id" : 6,
+"Employee_name" : "Nitin",
+"Age" : 21,
+"Dept" : "Comp",
+"Salary" : 6000
+}
+11. Add email Id for ‘Joe’ (using $AddToSet modifier with update)
+>db.Employee.update({"Employee_name":"Suraj"},{$addToSet:{"Email_Id":"nitinonline@gmail.c
+om"}},{multi:true});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.Employee.find().pretty();
+{
+"_id" : ObjectId("634645cc1e5d2539627110a9"),
+"Employee_id" : 1,
+"Employee_name" : "Vedant",
+"Age" : 20,
+"Dept" : "Comp",
+"Salary" : 3000
+}
+{
+"_id" : ObjectId("634645f5f01fab6151010b40"),
+"Employee_id" : 2,
+"Employee_name" : "Nikhil",
+"Age" : 21,
+"Dept" : "Comp",
+"Salary" : 2000
+}
+{
+"_id" : ObjectId("634645faf01fab6151010b41"),
+"Employee_id" : 3,
+"Employee_name" : "Suraj",
+"Age" : 20,
+"Dept" : "Mech",
+"Salary" : 7000,
+"Email_Id" : [
+"nitinonline@gmail.com"
+]
+}
+{
+"_id" : ObjectId("63464603f01fab6151010b42"),
+"Employee_id" : 4,
+"Employee_name" : "Gaurav",
+"Age" : 22,
+"Dept" : "Comp",
+"Salary" : 4000
+}
+{
+"_id" : ObjectId("6346460af01fab6151010b43"),
+"Employee_id" : 5,
+"Employee_name" : "Ayush",
+"Age" : 22,
+"Dept" : "Comp",
+"Salary" : 3500
+}
+{
+"_id" : ObjectId("6346465fd342f81ce051c383"),
+"Employee_id" : 0,
+"Employee_name" : "Emp0",
+"Age" : 26,
+"Salary" : 0,
+"Dept" : "Dept0"
+}
+{
+"_id" : ObjectId("6346465fd342f81ce051c384"),
+"Employee_id" : 1,
+"Employee_name" : "Emp1",
+"Age" : 60,
+"Salary" : 1000,
+"Dept" : "Dept1"
+}
+{
+"_id" : ObjectId("6346465fd342f81ce051c385"),
+"Employee_id" : 2,
+"Employee_name" : "Emp2",
+"Age" : 51,
+"Salary" : 2000,
+"Dept" : "Dept2"
+}
+{
+"_id" : ObjectId("63464672d342f81ce051c386"),
+"Employee_id" : 6,
+"Employee_name" : "Nitin",
+"Age" : 21,
+"Dept" : "Comp",
+"Salary" : 6000
+}
+12. Remove all the documents for the employees belonging to ‘Operations’ department
+> db.Employee.remove({"Dept":"Mech"});
+WriteResult({ "nRemoved" : 1 })
+> db.Employee.find().pretty();
+{
+"_id" : ObjectId("634645cc1e5d2539627110a9"),
+"Employee_id" : 1,
+"Employee_name" : "Vedant",
+"Age" : 20,
+"Dept" : "Comp",
+"Salary" : 3000
+}
+{
+"_id" : ObjectId("634645f5f01fab6151010b40"),
+"Employee_id" : 2,
+"Employee_name" : "Nikhil",
+"Age" : 21,
+"Dept" : "Comp",
+"Salary" : 2000
+}
+{
+"_id" : ObjectId("63464603f01fab6151010b42"),
+"Employee_id" : 4,
+"Employee_name" : "Gaurav",
+"Age" : 22,
+"Dept" : "Comp",
+"Salary" : 4000
+}
+{
+"_id" : ObjectId("6346460af01fab6151010b43"),
+"Employee_id" : 5,
+"Employee_name" : "Ayush",
+"Age" : 22,
+"Dept" : "Comp",
+"Salary" : 3500
+}
+{
+"_id" : ObjectId("6346465fd342f81ce051c383"),
+"Employee_id" : 0,
+"Employee_name" : "Emp0",
+"Age" : 26,
+"Salary" : 0,
+"Dept" : "Dept0"
+}
+{
+"_id" : ObjectId("6346465fd342f81ce051c384"),
+"Employee_id" : 1,
+"Employee_name" : "Emp1",
+"Age" : 60,
+"Salary" : 1000,
+"Dept" : "Dept1"
+}
+{
+"_id" : ObjectId("6346465fd342f81ce051c385"),
+"Employee_id" : 2,
+"Employee_name" : "Emp2",
+"Age" : 51,
+"Salary" : 2000,
+"Dept" : "Dept2"
+}
+{
+"_id" : ObjectId("63464672d342f81ce051c386"),
+"Employee_id" : 6,
+"Employee_name" : "Nitin",
+"Age" : 21,
+"Dept" : "Comp",
+"Salary" : 6000
+}
+13. Sort all the documents according to the name of employees
+> db.Employee.find({}).sort({Employee_name:1});
+{ "_id" : ObjectId("6346460af01fab6151010b43"), "Employee_id" : 5, "Employee_name" :
+"Ayush", "Age" : 22, "Dept" : "Comp", "Salary" : 3500 }
+{ "_id" : ObjectId("6346465fd342f81ce051c383"), "Employee_id" : 0, "Employee_name" :
+"Emp0", "Age" : 26, "Salary" : 0, "Dept" : "Dept0" }
+{ "_id" : ObjectId("6346465fd342f81ce051c384"), "Employee_id" : 1, "Employee_name" :
+"Emp1", "Age" : 60, "Salary" : 1000, "Dept" : "Dept1" }
+
+{ "_id" : ObjectId("6346465fd342f81ce051c385"), "Employee_id" : 2, "Employee_name" :
+"Emp2", "Age" : 51, "Salary" : 2000, "Dept" : "Dept2" }
+{ "_id" : ObjectId("63464603f01fab6151010b42"), "Employee_id" : 4, "Employee_name" :
+"Gaurav", "Age" : 22, "Dept" : "Comp", "Salary" : 4000 }
+{ "_id" : ObjectId("634645f5f01fab6151010b40"), "Employee_id" : 2, "Employee_name" :
+"Nikhil", "Age" : 21, "Dept" : "Comp", "Salary" : 2000 }
+{ "_id" : ObjectId("63464672d342f81ce051c386"), "Employee_id" : 6, "Employee_name" : "Nitin",
+"Age" : 21, "Dept" : "Comp", "Salary" : 6000 }
+{ "_id" : ObjectId("634645cc1e5d2539627110a9"), "Employee_id" : 1, "Employee_name" :
+"Vedant", "Age" : 20, "Dept" : "Comp", "Salary" : 3000 }
+> db.Employee.find({}).sort({Employee_name:1}).pretty();
+{
+"_id" : ObjectId("6346460af01fab6151010b43"),
+"Employee_id" : 5,
+"Employee_name" : "Ayush",
+"Age" : 22,
+"Dept" : "Comp",
+"Salary" : 3500
+}
+{
+"_id" : ObjectId("6346465fd342f81ce051c383"),
+"Employee_id" : 0,
+"Employee_name" : "Emp0",
+"Age" : 26,
+"Salary" : 0,
+"Dept" : "Dept0"
+}
+{
+"_id" : ObjectId("6346465fd342f81ce051c384"),
+"Employee_id" : 1,
+"Employee_name" : "Emp1",
+"Age" : 60,
+"Salary" : 1000,
+"Dept" : "Dept1"
+}
+{
+"_id" : ObjectId("6346465fd342f81ce051c385"),
+"Employee_id" : 2,
+"Employee_name" : "Emp2",
+"Age" : 51,
+"Salary" : 2000,
+"Dept" : "Dept2"
+}
+{
+"_id" : ObjectId("63464603f01fab6151010b42"),
+"Employee_id" : 4,
+"Employee_name" : "Gaurav",
+"Age" : 22,
+"Dept" : "Comp",
+"Salary" : 4000
+}
+{
+"_id" : ObjectId("634645f5f01fab6151010b40"),
+"Employee_id" : 2,
+"Employee_name" : "Nikhil",
+"Age" : 21,
+"Dept" : "Comp",
+"Salary" : 2000
+}
+{
+"_id" : ObjectId("63464672d342f81ce051c386"),
+"Employee_id" : 6,
+"Employee_name" : "Nitin",
+"Age" : 21,
+"Dept" : "Comp",
+"Salary" : 6000
+}
+{
+"_id" : ObjectId("634645cc1e5d2539627110a9"),
+"Employee_id" : 1,
+"Employee_name" : "Vedant",
+"Age" : 20,
+"Dept" : "Comp",
+"Salary" : 3000
+}
+14. Display only first three documents
+> db.Employee.find().limit(3).pretty()
+{
+"_id" : ObjectId("634645cc1e5d2539627110a9"),
+"Employee_id" : 1,
+"Employee_name" : "Vedant",
+"Age" : 20,
+"Dept" : "Comp",
+"Salary" : 3000
+}
+{
+"_id" : ObjectId("634645f5f01fab6151010b40"),
+"Employee_id" : 2,
+"Employee_name" : "Nikhil",
+"Age" : 21,
+"Dept" : "Comp",
+"Salary" : 2000
+}
+{
+"_id" : ObjectId("63464603f01fab6151010b42"),
+"Employee_id" : 4,
+"Employee_name" : "Gaurav",
+"Age" : 22,
+"Dept" : "Comp",
+"Salary" : 4000
+}
+15. Display all the documents except first 4
+> db.Employee.find().skip(4).pretty()
+{
+"_id" : ObjectId("6346465fd342f81ce051c383"),
+"Employee_id" : 0,
+"Employee_name" : "Emp0",
+"Age" : 26,
+"Salary" : 0,
+"Dept" : "Dept0"
+}
+{
+"_id" : ObjectId("6346465fd342f81ce051c384"),
+"Employee_id" : 1,
+"Employee_name" : "Emp1",
+"Age" : 60,
+"Salary" : 1000,
+"Dept" : "Dept1"
+}
+{
+"_id" : ObjectId("6346465fd342f81ce051c385"),
+"Employee_id" : 2,
+"Employee_name" : "Emp2",
+"Age" : 51,
+"Salary" : 2000,
+"Dept" : "Dept2"
+}
+{
+"_id" : ObjectId("63464672d342f81ce051c386"),
+"Employee_id" : 6,
+"Employee_name" : "Nitin",
+"Age" : 21,
+"Dept" : "Comp",
+"Salary" : 6000
+}

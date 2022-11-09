@@ -1,0 +1,74 @@
+
+DBMS – ASSIGNMENT – 5
+CREATE TABLE BORROWER
+create table borrower1 (ROLL_NO NUMBER, NAME VARCHAR2(20), D_O_ISSUE
+DATE, NAME_OF_BOOK VARCHAR2(20), STATUS VARHCAR2(5));
+SQL> desc borrower1;
+Name Null? Type
+----------------------------------------- -------- ----------------------------
+ROLL_NO NUMBER
+NAME VARCHAR2(20)
+D_O_ISSUE DATE
+NAME_OF_BOOK VARCHAR2(20)
+STATUS VARCHAR2(5)
+CREATE TABLE FIN
+create table fine (ROLL_NO NUMBER (5), DATE_OF_FINE DATE, AMT NUMBER(5);
+SQL> desc fine1;
+Name Null? Type
+----------------------------------------- -------- ----------------------------
+ROLL_NO NUMBER(5)
+DATE_OF_FINE DATE
+AMT NUMBER(15)
+INSERT VALUES INTO THE BORROWER TABLE
+SQL> insert into borrower1 values (10,'vedant','3-8-22','dbms','R');
+1 row created.
+SQL> insert into borrower1 values(11,'nitin','4-8-22','toc','NR');
+1 row created.
+SQL> insert into borrower1 values(12,'suraj','5-8-22','iot','R');
+1 row created.
+SQL> insert into borrower1 values(13,'shiv','6-8-22','cns','R');
+1 row created.
+SQL> insert into borrower1 values(14,'sahil','7-8-22','spos','NR');
+1 row created.
+SQL> select*from borrower1;
+ROLL_NO NAME D_O_ISSU NAME_OF_BOOK STATUS
+---------- -------------------- -------- -------------------- -----
+10 vedant 03-08-22 dbms R
+11 nitin 04-08-22 toc NR
+12 suraj 05-08-22 iot R
+13 shiv 06-08-22 cns R
+14 sahil 07-08-22 spos NR
+PLSQL BLOCK BY USING CONTROL STRUCTURE AND EXCEPTION
+HANDLING
+DECLARE
+bname1 borrower1.bname%type;
+rno1 borrower1.roll_no%type;
+no_days int;
+rec borrowe1r%ROWTYPE;
+f int;
+BEGIN
+rno1 := &rno1;
+bname1 := '&bname1';
+SELECT * INTO rec FROM borrower1 WHERE rollno = rno1;
+no_days := ((sysdate - rec.idate) - 15);
+IF no_days > 0 THEN
+IF no_days > 15 THEN
+f := ((no_days - 15) * 50) + (15 * 5);
+ELSE
+f := no_days * 5;
+END IF;
+ELSE
+f := (-1);
+END IF;
+IF f != (-1) THEN
+INSERT INTO fine (rollno, rdate, amt) VALUES (rno1, sysdate, f);
+END IF;
+UPDATE borrower1 SET stat = 'R' WHERE rollno = rno1;
+COMMIT;
+EXCEPTION
+WHEN NO_DATA_FOUND THEN
+dbms_output.put_line('INVALID RECORD');
+WHEN OTHERS THEN
+dbms_output.put_line('ERROR OCCURED');
+END;
+/

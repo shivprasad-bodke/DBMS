@@ -1,0 +1,252 @@
+DBMS ASSIGNMENT : 11
+mmcoe@mmcoe-System-Product-Name:~$ mongo
+MongoDB shell version: 2.6.10 connecting to: test
+//CREATING THE COLLECTION
+>db.createCollection(“Product”);
+{ "ok" : 1 }
+//DISPLAYING ALL COLLECTIONS
+> show collections;
+Employee
+Product
+System.indexes
+//USING COLLECTIONS
+> use Product;
+switched to db Product
+//INSERTING INTO PRODUCT-
+> db.Product.insert({name:"Mobile",company:"Samsung",cost:8500});
+WriteResult({ "nInserted" : 1 })
+> db.Product.insert({name:"Laptop",company:"HP",cost:45000});
+WriteResult({ "nInserted" : 1 })
+> db.Product.insert({name:"Washing Machine",company:"Panesonic",cost:13000});
+WriteResult({ "nInserted" : 1 })
+//DISPLAYING DOCUMENTS
+> db.Product.find().pretty();
+{
+"_id" : ObjectId("6346501991930f355ae10198"),
+"name" : "Mobile",
+"company" : "Samsung",
+"cost" : 8500
+}
+{
+"_id" : ObjectId("6346502c91930f355ae10199"),
+"name" : "Laptop",
+"company" : "HP",
+"cost" : 45000
+}
+{
+"_id" : ObjectId("6346504791930f355ae1019a"),
+"name" : "Washing Machine",
+"company" : "Panesonic",
+"cost" : 13000
+}
+//AGGREGATE THE DOCUMENTS IN THE COLLECTION BY GROUPING
+COMPANY NAME AND DISPLAYING MINIMUM AND MAXIMUM PRICE OF THE
+PRODUCT OF THE SAME COMPANY
+db.Product.aggregate({$group:{_id:"$company","maxPrice":{$max:"$cost"},"minPrice":{$min:
+"$c ost"}}});
+{ "_id" : "Panesonic", "maxPrice" : 13000, "minPrice" : 13000 }
+{ "_id" : "HP", "maxPrice" : 45000, "minPrice" : 45000 }
+{ "_id" : "Samsung", "maxPrice" : 8500, "minPrice" : 8500 }
+//GROUP BY COMPANY NAME
+> db.Product.aggregate([{$group:{_id:"$company"}}]);
+{ "_id" : "Panesonic" }
+{ "_id" : "HP" }
+{ "_id" : "Samsung" }
+//SORT
+> db.Product.aggregate([{$sort:{company:1}}]).pretty();
+{
+"_id" : ObjectId("6346502c91930f355ae10199"),
+"name" : "Laptop",
+"company" : "HP",
+"cost" : 45000
+}
+{
+"_id" : ObjectId("6346504791930f355ae1019a"),
+"name" : "Washing Machine",
+"company" : "Panesonic",
+"cost" : 13000
+}
+{
+"_id" : ObjectId("6346501991930f355ae10198"),
+"name" : "Mobile",
+"company" : "Samsung",
+"cost" : 8500
+}
+//COUNTING -
+> db.Product.count();
+3
+//DISTINCT COMPANY NAMES -
+> db.Product.distinct("company");
+[ "Samsung", "HP", "Panesonic" ]
+//ONLY FIRST DOCUMENT-
+> db.Product.find().limit(1).pretty();
+{
+"_id" : ObjectId("6346501991930f355ae10198"),
+"name" : "Mobile",
+"company" : "Samsung",
+"cost" : 8500
+}
+//SKIP THE FIRST 2 DOCUMENTS -
+> db.Product.find().skip(2).pretty();
+{
+"_id" : ObjectId("6346504791930f355ae1019a"),
+"name" : "Washing Machine",
+"company" : "Panesonic",
+"cost" : 13000
+}
+//CREATING THE COLLECTION STAFF
+> db.createCollection("staff");
+{ "ok" : 1 }
+//INSERTING INTO STAFF
+> db.staff.insert({staff_id : 1,staff_name :"Manju",staff_age:24});
+WriteResult({ "nInserted" : 1 })
+> db.staff.insert({staff_id : 2,staff_name :"Manasi",staff_age:20});
+WriteResult({ "nInserted" : 1 })
+> db.staff.insert({staff_id : 3,staff_name :"karan",staff_age:35});
+WriteResult({ "nInserted" : 1 })
+> db.staff.insert({staff_id : 4,staff_name :"Aditya",staff_age:32});
+WriteResult({ "nInserted" : 1 })
+> db.staff.insert({staff_id : 5,staff_name :"Manasi",staff_age:24});
+WriteResult({ "nInserted" : 1 })
+> db.staff.insert({staff_id : 6,staff_name :"karan",staff_age:40});
+WriteResult({ "nInserted" : 1 })
+> db.staff.insert({staff_id : 7,staff_name :"Aditya",staff_age:30});
+WriteResult({ "nInserted" : 1 })
+> db.staff.insert({staff_id : 8,staff_name :"Anaya",staff_age:20});
+WriteResult({ "nInserted" : 1 })
+//DISPLAYING THE COLLECTION STAFF
+> db.staff.find().pretty();
+{
+"_id" : ObjectId("634e3956cf14be8e5dfdeaf3"),
+"staff_id" : 1,
+"staff_name" : "Manju",
+"staff_age" : 24
+}
+{
+"_id" : ObjectId("634e396ccf14be8e5dfdeaf4"),
+"staff_id" : 2,
+"staff_name" : "Manasi",
+"staff_age" : 20
+}
+{
+"_id" : ObjectId("634e397ecf14be8e5dfdeaf5"),
+"staff_id" : 3,
+"staff_name" : "karan",
+"staff_age" : 35
+}
+{
+"_id" : ObjectId("634e39a9cf14be8e5dfdeaf6"),
+"staff_id" : 5,
+"staff_name" : "Aditya",
+"staff_age" : 32
+}
+{
+"_id" : ObjectId("634e39cacf14be8e5dfdeaf7"),
+"staff_id" : 4,
+"staff_name" : "Manasi",
+"staff_age" : 24
+}
+{
+"_id" : ObjectId("634e39efcf14be8e5dfdeaf8"),
+"staff_id" : 6,
+"staff_name" : "karan",
+"staff_age" : 40
+}
+{
+"_id" : ObjectId("634e3a67cf14be8e5dfdeaf9"),
+"staff_id" : 7,
+"staff_name" : "Aditya",
+"staff_age" : 30
+}
+{
+"_id" : ObjectId("634e3a78cf14be8e5dfdeafa"),
+"staff_id" : 8,
+"staff_name" : "Anaya",
+"staff_age" : 20
+}
+//FIND THE DOCUMENT WHERE STAFF_ID IS 2
+>
+db.staff.find({staff_id:2}).pretty();
+{
+"_id" : ObjectId("634e396ccf14be8e5dfdeaf4"),
+"staff_id" : 2,
+"staff_name" : "Manasi",
+"staff_age" : 20
+}
+//FIND THE DOCUMENT WHERE STAFF_AGE =40 AND STAFF_NAME = KARAN;
+> db.staff.find({staff_name:"karan",staff_age:40}).pretty();
+{
+"_id" : ObjectId("634e39efcf14be8e5dfdeaf8"),
+"staff_id" : 6,
+"staff_name" : "karan",
+"staff_age" : 40
+}
+//CREATE INDEX ON STAFF_NAME
+> db.staff.ensureIndex({staff_name:1});
+{
+"createdCollectionAutomatically" : false,
+"numIndexesBefore" : 1,
+"numIndexesAfter" : 2,
+"ok" : 1
+}
+> db.staff.getIndexes();
+[
+{
+"v" : 1,
+"key" : {
+"_id" : 1
+},
+"name" : "_id_",
+"ns" : "test.staff"
+},
+{
+"v" : 1,
+"key" : {
+"staff_name" : 1
+},
+"name" : "staff_name_1",
+"ns" : "test.staff"
+}
+]
+//CREATE THE INDEX ON STAFF_AGE AND STAFF_NAME
+> db.staff.ensureIndex({staff_age:1,staff_name:1});
+{
+"createdCollectionAutomatically" : false,
+"numIndexesBefore" : 2,
+"numIndexesAfter" : 3,
+"ok" : 1
+}
+> db.staff.getIndexes();
+[
+{
+"v" : 1,
+"key" : {
+"_id" : 1
+},
+"name" : "_id_",
+"ns" : "Product.staff"
+},
+{
+"v" : 1,
+"key" : {
+"staff_name" : 1
+},
+"name" : "staff_name_1",
+"ns" : "Product.staff"
+},
+{
+"v" : 1,
+"key" : {
+"staff_age" : 1,
+"staff_name" : 1
+},
+"name" : "staff_age_1_staff_name_1",
+"ns" : "Product.staff"
+}
+]
+//DROP THE INDEX ON STAFF_AGE AND STAFF_NAME
+> db.staff.dropIndex({staff_name:1,staff_age:1});
+{ "nIndexesWas" : 3, "ok" : 1 }
+//DROP THE INDEX ON STAFF_NAME
+> db.staff.dropIndex({staff_name:1});
+{ "nIndexesWas" : 3, "ok" : 1}

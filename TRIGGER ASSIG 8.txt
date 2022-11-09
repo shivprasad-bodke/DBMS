@@ -1,0 +1,108 @@
+DBMS – ASSIGNMENT – 8
+CREATE TABLE product1
+create table product1(product_id number(5), product_name varchar(30), supplier_name
+varchar(30), unit_price number(5));
+Table created.
+CREATE TABLE product_price_history
+create table product_price_history(product_id number(5), product_name varchar(30),
+supplier_name varchar(30), unit_price number(5));
+Table created.
+INSERT VALUES INTO product1 TABLE –
+mysql> delimiter //
+mysql> insert into product1 Values(101, 'Laptop', 'Dell', 55000);
+-> //
+Query OK, 1 row affected (0.00 sec)
+mysql> Select* from product1;
+-> //
++------------+--------------+---------------+------------+
+| product_id | product_name | supplier_name | unit_price |
++------------+--------------+---------------+------------+
+| 101 | Laptop | Dell | 55000 |
++------------+--------------+---------------+------------+
+mysql> Select* from product_price_history;
+-> //
+Empty set (0.00 sec)
+
+CREATE TRIGGER price_history_trigger
+mysql> drop trigger if exists price_history_trigger;
+-> create trigger pice_history_trigger
+-> Before Update on product1
+-> for Each Row Begin
+-> Insert Into product_price_history Set
+-> product_id=old.product_id,
+-> product_name=old.product_name,
+-> supplier_name=old.supplier_name,
+-> unit_price=old.unit_price;
+-> end;
+-> //
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+Query OK, 0 rows affected (0.01 sec)
+UPDATE
+mysql> update product1 set unit_price=75000 where product_id=101;
+-> //
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1 Changed: 1 Warnings: 0
+mysql> Select* from product_price_history;
+-> //
++------------+--------------+---------------+------------+
+| product_id | product_name | supplier_name | unit_price |
++------------+--------------+---------------+------------+
+| 101 | Laptop | Dell | 55000 |
++------------+--------------+---------------+------------+
+1 row in set (0.00 sec)
+
+mysql> Select* from product1;
+-> //
++------------+--------------+---------------+------------+
+| product_id | product_name | supplier_name | unit_price |
++------------+--------------+---------------+------------+
+| 101 | Laptop | Dell | 75000 |
++------------+--------------+---------------+------------+
+1 row in set (0.00 sec)
+CREATE TABLE Library
+mysql> create table Library(book_id int(5), book_name varchar(30), price int(10));
+Query OK, 0 rows affected (0.01 sec)
+CREATE TABLE Library_Audit
+mysql> create table Library_Audit(book_id int(5), book_name varchar(30), price int(10));
+Query OK, 0 rows affected (0.01 sec)
+INSERT VALUES INTO Library Table –
+mysql> insert into Library Values(101, 'DBMS', 350);
+Query OK, 1 row affected (0.00 sec)
+mysql> select * from Library;
++---------+-----------+-------+
+| book_id | book_name | price |
++---------+-----------+-------+
+| 101 | DBMS | 350 |
++---------+-----------+-------+
+1 row in set (0.01 sec)
+mysql> select * from Library_Audit;
+Empty set (0.00 sec)
+
+CREATE TRIGGER libtrigger
+mysql> create trigger libtrigger before update on Library for each row begin insert into
+Library_Audit set book_id=old.book_id, book_name=old.book_name, price=old.price; end;//
+Query OK, 0 rows affected (0.00 sec)
+CREATE TRIGGER libtrigger2
+mysql> create trigger libtrigger2 before delete on Library for each row begin insert into
+Library_Audit set book_id=old.book_id, book_name=old.book_name, price=old.price; end;//
+Query OK, 0 rows affected (0.00 sec)
+mysql> update Library set price=500 where book_id=101;
+-> //
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1 Changed: 1 Warnings: 0
+mysql> select * from Library_Audit;
+-> //
++---------+-----------+-------+
+| book_id | book_name | price |
++---------+-----------+-------+
+| 101 | DBMS | 350 |
++---------+-----------+-------+
+1 row in set (0.00 sec)
+mysql> select * from Library;
+-> //
++---------+-----------+-------+
+| book_id | book_name | price |
++---------+-----------+-------+
+| 101 | DBMS | 500 |
++---------+-----------+-------+
+1 row in set (0.00 sec)

@@ -1,0 +1,197 @@
+
+DBMS GROUP: A ASSIGNMENT NO: 2B
+mysql> create database college;
+Query OK, 1 row affected (0.01 sec)
+mysql> use college;
+Database changed
+mysql> create table Student(roll_no INT(5),name varchar(12),division varchar(4),branch
+varchar(8),city varchar(12),marks INT(4));
+Query OK, 0 rows affected, 2 warnings (0.04 sec)
+mysql> insert into Student values(1,'Vinayak','TE1','Comp', 'Karad',95);
+Query OK, 1 row affected (0.01 sec)
+mysql> insert into Student values(2,'Girish','TE1','Comp', 'Karad',97);
+Query OK, 1 row affected (0.00 sec)
+mysql> insert into Student values(3,'Prathmesh','TE1','Comp', 'Nanded',85);
+Query OK, 1 row affected (0.00 sec)
+mysql> insert into Student values(4,'Soham','TE1','Comp', 'Nanded',91);
+Query OK, 1 row affected (0.00 sec)
+mysql> insert into Student (roll_no, name, division, branch, city, marks)
+values(5,'Adarsh','TE2','Comp','Karad',82),(6,'Atharv','TE1','Comp','Latur',83),(7,'Pratik','ME2','Mech','
+Karad',65),(8,'Rohit','TE1','Comp','Lonavala',77),(9,'Tejas','TE2','Elect','Satara',73),(10,'Mandar','TE1','
+Mech','Karad',62);
+Query OK, 6 rows affected (0.00 sec)
+Records: 6 Duplicates: 0 Warnings: 0
+mysql> select * from Student;
++---------+-----------+----------+--------+----------+-------+
+| roll_no | name | division | branch | city | marks |
++---------+-----------+----------+--------+----------+-------+
+| 1 | Vinayak | TE1 | Comp | Karad | 95 |
+| 2 | Girish | TE1 | Comp | Karad | 97 |
+| 3 | Prathmesh | TE1 | Comp | Nanded | 85 |
+| 4 | Soham | TE1 | Comp | Nanded | 91 |
+| 5 | Adarsh | TE2 | Comp | Karad | 82 |
+| 6 | Atharv | TE1 | Comp | Latur | 83 |
+| 7 | Pratik | ME2 | Mech | Karad | 65 |
+| 8 | Rohit | TE1 | Comp | Lonavala | 77 |
+| 9 | Tejas | TE2 | Elect | Satara | 73 |
+| 10 | Mandar | TE1 | Mech | Karad | 62 |
++---------+-----------+----------+--------+----------+-------+
+10 rows in set (0.00 sec)
+mysql> select name,city from Student;
++-----------+----------+
+| name | city |
++-----------+----------+
+| Vinayak | Karad |
+| Girish | Karad |
+| Prathmesh | Nanded |
+| Soham | Nanded |
+| Adarsh | Karad |
+| Atharv | Latur |
+| Pratik | Karad |
+| Rohit | Lonavala |
+| Tejas | Satara |
+| Mandar | Karad |
++-----------+----------+
+10 rows in set (0.00 sec)
+mysql> select distinct name from Student;
++-----------+
+| name |
++-----------+
+| Vinayak |
+| Girish |
+| Prathmesh |
+| Soham |
+| Adarsh |
+| Atharv |
+| Pratik |
+| Rohit |
+| Tejas |
+| Mandar |
++-----------+
+10 rows in set (0.00 sec)
+mysql> select * from Student where marks > 75;
++---------+-----------+----------+--------+----------+-------+
+| roll_no | name | division | branch | city | marks |
++---------+-----------+----------+--------+----------+-------+
+| 1 | Vinayak | TE1 | Comp | Karad | 95 |
+| 2 | Girish | TE1 | Comp | Karad | 97 |
+| 3 | Prathmesh | TE1 | Comp | Nanded | 85 |
+| 4 | Soham | TE1 | Comp | Nanded | 91 |
+| 5 | Adarsh | TE2 | Comp | Karad | 82 |
+| 6 | Atharv | TE1 | Comp | Latur | 83 |
+| 8 | Rohit | TE1 | Comp | Lonavala | 77 |
++---------+-----------+----------+--------+----------+-------+
+7 rows in set (0.00 sec)
+mysql> select * from Student where name like 's%';
++---------+-------+----------+--------+--------+-------+
+| roll_no | name | division | branch | city | marks |
++---------+-------+----------+--------+--------+-------+
+| 4 | Soham | TE1 | Comp | Nanded | 91 |
++---------+-------+----------+--------+--------+-------+
+1 row in set (0.00 sec)
+mysql> select * from Student where marks between 60 and 70;
++---------+--------+----------+--------+-------+-------+
+| roll_no | name | division | branch | city | marks |
++---------+--------+----------+--------+-------+-------+
+| 7 | Pratik | ME2 | Mech | Karad | 65 |
+| 10 | Mandar | TE1 | Mech | Karad | 62 |
++---------+--------+----------+--------+-------+-------+
+2 rows in set (0.00 sec)
+mysql> select * from Student where branch = 'Comp' and city='Karad';
++---------+---------+----------+--------+-------+-------+
+| roll_no | name | division | branch | city | marks |
++---------+---------+----------+--------+-------+-------+
+| 1 | Vinayak | TE1 | Comp | Karad | 95 |
+| 2 | Girish | TE1 | Comp | Karad | 97 |
+| 5 | Adarsh | TE2 | Comp | Karad | 82 |
++---------+---------+----------+--------+-------+-------+
+3 rows in set (0.00 sec)
+mysql> update Student set branch='Mech' where roll_no = 6;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1 Changed: 1 Warnings: 0
+mysql> delete from Student where branch='ME2';
+Query OK, 0 rows affected (0.00 sec)
+mysql> create table TE_Students(roll_no int(4), name varchar(12));
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+mysql> insert into TE_Students (roll_no,name)
+values(1,'Vinayak'),(4,'Soham'),(6,'Pratham'),(11,'Pratik'),(12,'Akash');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5 Duplicates: 0 Warnings: 0
+mysql> select * from TE_Students;
++---------+---------+
+| roll_no | name |
++---------+---------+
+| 1 | Vinayak |
+| 4 | Soham |
+| 6 | Pratham |
+| 11 | Pratik |
+| 12 | Akash |
++---------+---------+
+5 rows in set (0.00 sec)
+mysql> select roll_no,name from Student union select roll_no, name from TE_Students;
++---------+-----------+
+| roll_no | name |
++---------+-----------+
+| 1 | Vinayak |
+| 2 | Girish |
+| 3 | Prathmesh |
+| 4 | Soham |
+| 5 | Adarsh |
+| 6 | Atharv |
+| 7 | Pratik |
+| 8 | Rohit |
+| 9 | Tejas |
+| 10 | Mandar |
+| 6 | Pratham |
+| 11 | Pratik |
+| 12 | Akash |
++---------+-----------+
+13 rows in set (0.00 sec)
+mysql> select upper(name) from Student;
++-------------+
+| upper(name) |
++-------------+
+| VINAYAK |
+| GIRISH |
+| PRATHMESH |
+| SOHAM |
+| ADARSH |
+| ATHARV |
+| PRATIK |
+| ROHIT |
+| TEJAS |
+| MANDAR |
++-------------+
+10 rows in set (0.00 sec)
+mysql> select bin(marks) from Student;
++------------+
+| bin(marks) |
++------------+
+| 1011111 |
+| 1100001 |
+| 1010101 |
+| 1011011 |
+| 1010010 |
+| 1010011 |
+| 1000001 |
+| 1001101 |
+| 1001001 |
+| 111110 |
++------------+
+10 rows in set (0.00 sec)
+mysql> select hex(marks) from Student;
++------------+
+| hex(marks) |
++------------+
+| 5F |
+| 61 |
+| 55 |
+| 5B |
+| 52 |
+| 53 |
+| 41 |
+| 4D |
+| 49 |
+| 3E |
++------------+
+10 rows in set (0.00 sec)
